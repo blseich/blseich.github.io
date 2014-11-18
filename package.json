@@ -2,6 +2,8 @@
   "name": "myapp",
   "version": "0.1.0",
   "devDependencies": {
+    "event-stream": "^3.1.7",
+    "fs": "0.0.2",
     "gulp": "^3.8.10",
     "gulp-autoprefixer": "^2.0.0",
     "gulp-changed": "^1.0.0",
@@ -10,8 +12,10 @@
     "gulp-jshint": "^1.9.0",
     "gulp-minify-css": "^0.3.11",
     "gulp-minify-html": "^0.1.6",
+    "gulp-rename": "^1.2.0",
     "gulp-strip-debug": "^1.0.1",
     "gulp-uglify": "^1.0.1",
-    "gulp-webserver": "^0.8.7"
+    "gulp-webserver": "^0.8.7",
+    "path": "^0.4.9"
   }
 }
