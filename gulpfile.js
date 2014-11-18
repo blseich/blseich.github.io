@@ -75,18 +75,21 @@ gulp.task('scripts', ['jshint'], function() {
         	.pipe(uglify())
         	.pipe(rename(folder + '.min.js'))
         	.pipe(gulp.dest(dstPath + folder + '/scripts'));
-	}
+	};
 	return buildFolderContent(jsBuild);
 });
 
 
 // CSS concat, auto-prefix and minify
 gulp.task('styles', function() {
-  gulp.src(['./src/styles/*.css'])
-    .pipe(concat('styles.css'))
-    .pipe(autoprefix('last 2 versions'))
-    .pipe(minifyCSS())
-    .pipe(gulp.dest('./build/styles/'));
+  var cssBuild = function(folder) {
+  	return gulp.src(path.join(srcPath, folder, 'styles/*.css'))
+    	.pipe(concat(folder + '.css'))
+    	.pipe(autoprefix('last 2 versions'))
+    	.pipe(minifyCSS())
+    	.pipe(gulp.dest(dstPath + folder + '/styles'));
+    };
+    return buildFolderContent(cssBuild);
 });
 
 //Start webserver at localhost:8000
