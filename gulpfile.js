@@ -45,24 +45,25 @@ gulp.task('jshint', function(){
 
 //minify new images
 gulp.task('imagemin', function(){
-	var imgSrc = './src/images/**/*',
-      imgDst = './build/images';
- 
-  gulp.src(imgSrc)
-    .pipe(changed(imgDst))
-    .pipe(imagemin())
-    .pipe(gulp.dest(imgDst));
+  var assetBuild = function(folder) {
+  	return gulp.src(path.join(srcPath, folder, 'assets/**/*'))
+    	.pipe(changed(dstPath + folder + '/assets'))
+    	.pipe(imagemin())
+    	.pipe(gulp.dest(dstPath + folder + '/assets'));
+	};
+	return buildFolderContent(assetBuild);
 });
 
 //minify html
 gulp.task('minifyHTML', function(){
-	var htmlSrc = './src/*.html',
-      htmlDst = './build';
- 
-	gulp.src(htmlSrc)
-		.pipe(changed(htmlDst))
-		.pipe(minifyHTML())
-		.pipe(gulp.dest(htmlDst));
+	var htmlBuild = function(folder) {
+		return gulp.src(path.join(srcPath, folder, '/*.html'))
+			.pipe(changed(dstPath + folder))
+			.pipe(minifyHTML())
+			.pipe(gulp.dest(dstPath + folder));
+	};
+	return buildFolderContent(htmlBuild);
+	
 });
 
 
