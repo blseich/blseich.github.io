@@ -4,6 +4,7 @@ var gulp = require('gulp');
 //include plug-ins
 var autoprefix = require('gulp-autoprefixer'),
 	changed = require('gulp-changed'),
+	chug = require('gulp-chug'),
 	concat = require('gulp-concat'),
 	eventStream = require('event-stream'),
 	fs = require('fs'),
@@ -38,7 +39,7 @@ function buildFolderContent(func){
 
 //JS hint task
 gulp.task('jshint', function(){
-	gulp.src('./src/**/scripts/*.js')
+	gulp.src('./src/**/scripts/*[^.min].js')
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
@@ -70,7 +71,7 @@ gulp.task('minifyHTML', function(){
 // JS concat, strip debugging and minify
 gulp.task('scripts', ['jshint'], function() {
 	var jsBuild = function(folder){
-		return gulp.src(path.join(srcPath, folder, 'scripts/*.js'))
+		return gulp.src([path.join(srcPath, folder, "scripts/libs.js"), path.join(srcPath, folder, 'scripts/*.js')])
 			.pipe(concat(folder + '.js'))
         	.pipe(gulp.dest(dstPath + folder + '/scripts'))
         	.pipe(uglify())
@@ -99,5 +100,10 @@ gulp.task('server', function () {
     .pipe(webserver());
 });
 
-gulp.task('default', ['imagemin', 'minifyHTML', 'scripts', 'styles'], function() {
+gulp.task('runProjectBuild', function(){
+	return gulp.src('./src/**/gulpfile.js')
+		.pipe(chug());
+});
+
+gulp.task('default', ['runProjectBuild', 'imagemin', 'minifyHTML', 'scripts', 'styles'], function() {
 });
