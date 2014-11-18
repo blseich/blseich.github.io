@@ -2,14 +2,16 @@ var gulp = require('gulp');
 
 var concat = require('gulp-concat');
 
-gulp.task('buildJSDependencies', function(){
-	
-});
+var depPath = '../../bower_components';
 
-gulp.task('default', function(){
+gulp.task('buildJSDependencies', function(){
 	return gulp.src([
-		'../../bower_components/jquery/dist/jquery.min.js',
-		'../../bower_components/greensock/src/minified/TweenMax.min.js'])
+		depPath+'/jquery/dist/jquery.min.js',
+		depPath+'/gsap/src/minified/TweenMax.min.js'])
 		.pipe(concat('libs.min.js'))
 		.pipe(gulp.dest('./scripts'));
+});
+
+gulp.task('default', ['buildJSDependencies'], function(){
+	console.log("TEST 1 BUILD COMPLETE");
 });

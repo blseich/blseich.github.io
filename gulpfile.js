@@ -71,7 +71,7 @@ gulp.task('minifyHTML', function(){
 // JS concat, strip debugging and minify
 gulp.task('scripts', ['jshint'], function() {
 	var jsBuild = function(folder){
-		return gulp.src([path.join(srcPath, folder, "scripts/libs.js"), path.join(srcPath, folder, 'scripts/*.js')])
+		return gulp.src([path.join(srcPath, folder, "scripts/libs.min.js"), path.join(srcPath, folder, 'scripts/*.js')])
 			.pipe(concat(folder + '.js'))
         	.pipe(gulp.dest(dstPath + folder + '/scripts'))
         	.pipe(uglify())
